@@ -1,0 +1,12 @@
+parameters:
+  orkestra.wsse.security.authentication.provider.class: Orkestra\WebServiceBundle\Security\Authentication\Provider\WsseProvider
+  orkestra.wsse.security.authentication.listener.class: Orkestra\WebServiceBundle\Security\Firewall\WsseListener
+
+services:
+  orkestra.wsse.security.authentication.provider:
+    class: %orkestra.wsse.security.authentication.provider.class%
+    arguments: [ '', %kernel.cache_dir%/security/nonces, 300 ]
+
+  orkestra.wsse.security.authentication.listener:
+    class: %orkestra.wsse.security.authentication.listener.class%
+    arguments: [ @security.context, @security.authentication.manager ]

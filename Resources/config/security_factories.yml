@@ -1,0 +1,5 @@
+services:
+  security.authentication.factory.wsse:
+    class: Orkestra\WebServiceBundle\DependencyInjection\Security\Factory\WsseFactory
+    tags:
+      - { name: security.listener.factory }
