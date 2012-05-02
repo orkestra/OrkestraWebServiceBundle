@@ -16,14 +16,15 @@ class FilterRequestListener
             return;
 
         $request = $event->getRequest();
-        $contentType = $request->headers->get('content-type', 'application/json');
         $content = $request->getContent();
+        $contentType = $request->get('content-type', 'application/json');
+        $format = $request->getFormat($contentType);
 
-        switch ($contentType) {
-            case 'application/json':
+        switch ($format) {
+            case 'json':
                 $controller[0]->setRequestContent(json_decode($content));
                 break;
-            case 'application/xml':
+            case 'xml':
                 $controller[0]->setRequestContent(simplexml_load_string($content));
                 break;
             default:
