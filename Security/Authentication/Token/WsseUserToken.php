@@ -62,6 +62,8 @@ class WsseUserToken extends AbstractToken
         $this->_digest = $digest;
         $this->_nonce = $nonce;
         $this->_created = $created;
+
+        parent::setAuthenticated(count($roles) > 0);
     }
 
     /**
