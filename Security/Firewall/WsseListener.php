@@ -45,6 +45,7 @@ class WsseListener implements ListenerInterface
     public function handle(GetResponseEvent $event)
     {
         $request = $event->getRequest();
+        $failure = null;
 
         if ($request->headers->has('x-wsse')) {
             try {
@@ -58,11 +59,40 @@ class WsseListener implements ListenerInterface
                 else if ($result instanceof Response) {
                     return $event->setResponse($result);
                 }
-            } catch (AuthenticationException $e) { }
+            } catch (AuthenticationException $failure) { }
         }
 
-        $response = new Response();
-        $response->setStatusCode(403);
-        $event->setResponse($response);
+        $this->_onFailedToAuthenticate($event, $failure);
+    }
+
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @param null|\Symfony\Component\Security\Core\Exception\AuthenticationException $failure
+     */
+    protected function _onFailedToAuthenticate(GetResponseEvent $event, AuthenticationException $failure = null)
+    {
+        $request = $event->getRequest();
+        $format = $request->getRequestFormat('json');
+
+        $error = $failure ? $failure->getMessage() : 'Unable to authenticate';
+
+        switch ($format) {
+            case 'xml':
+                $contentType = 'text/xml';
+                $content = <<<END
+<?xml version="1.0" encoding="utf-8" ?>
+<response>
+    <success>false</success>
+    <error>{$error}</error>
+</response>
+END;
+                break;
+            case 'json':
+            default:
+                $contentType = 'application/json';
+                $content = json_encode(array('success' => false, 'error' => $error));
+        }
+
+        $event->setResponse(new Response($content, 403, array('content-type' => $contentType)));
     }
 }

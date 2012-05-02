@@ -28,7 +28,7 @@ class WsseUserToken extends AbstractToken
             return new WsseUserToken($matches[1], $matches[2], $matches[3], $matches[4]);
         }
 
-        throw new AuthenticationException('Could not create token. The header format is invalid');
+        throw new AuthenticationException('The UsernameToken provided is not valid');
     }
 
     /**
