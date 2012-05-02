@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\DependencyInjection\Security\Factory;
+namespace Orkestra\Bundle\WebServiceBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\DependencyInjection\Reference,

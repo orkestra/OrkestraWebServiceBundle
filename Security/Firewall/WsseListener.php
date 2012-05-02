@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\Security\Firewall;
+namespace Orkestra\Bundle\WebServiceBundle\Security\Firewall;
 
 use Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpKernel\Event\GetResponseEvent,
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response,
     Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface,
     Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-use Orkestra\WebServiceBundle\Security\Authentication\Token\WsseUserToken;
+use Orkestra\Bundle\WebServiceBundle\Security\Authentication\Token\WsseUserToken;
 
 /**
  * Firewall listener for WSSE Authentication

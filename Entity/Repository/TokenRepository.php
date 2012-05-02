@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\Entity\Repository;
+namespace Orkestra\Bundle\WebServiceBundle\Entity\Repository;
 
 use Symfony\Component\Security\Core\User\UserInterface,
     Symfony\Component\Security\Core\User\UserProviderInterface,

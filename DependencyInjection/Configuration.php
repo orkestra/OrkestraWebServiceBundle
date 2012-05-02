@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\DependencyInjection;
+namespace Orkestra\Bundle\WebServiceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

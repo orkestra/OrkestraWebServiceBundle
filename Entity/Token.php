@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\Entity;
+namespace Orkestra\Bundle\WebServiceBundle\Entity;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface,
     Symfony\Component\Security\Core\User\UserInterface;
@@ -15,7 +15,7 @@ use Orkestra\Common\Entity\EntityBase,
  * Defines a user that is able to interact with web services
  *
  * @ORM\Table(name="orkestra_tokens")
- * @ORM\Entity(repositoryClass="Orkestra\WebServiceBundle\Entity\Repository\TokenRepository")
+ * @ORM\Entity(repositoryClass="Orkestra\Bundle\WebServiceBundle\Entity\Repository\TokenRepository")
  */
 class Token extends EntityBase implements AdvancedUserInterface
 {

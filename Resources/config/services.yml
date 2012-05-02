@@ -1,6 +1,7 @@
 parameters:
-  orkestra.wsse.security.authentication.provider.class: Orkestra\WebServiceBundle\Security\Authentication\Provider\WsseProvider
-  orkestra.wsse.security.authentication.listener.class: Orkestra\WebServiceBundle\Security\Firewall\WsseListener
+  orkestra.wsse.security.authentication.provider.class: Orkestra\Bundle\WebServiceBundle\Security\Authentication\Provider\WsseProvider
+  orkestra.wsse.security.authentication.listener.class: Orkestra\Bundle\WebServiceBundle\Security\Firewall\WsseListener
+  orkestra.event_listener.filter_request.class: Orkestra\Bundle\WebServiceBundle\Listener\FilterRequestListener
 
 services:
   orkestra.wsse.security.authentication.provider:
@@ -10,3 +11,8 @@ services:
   orkestra.wsse.security.authentication.listener:
     class: %orkestra.wsse.security.authentication.listener.class%
     arguments: [ @security.context, @security.authentication.manager ]
+
+  orkestra.event_listener.filter_request:
+    class: %orkestra.event_listener.filter_request.class%
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

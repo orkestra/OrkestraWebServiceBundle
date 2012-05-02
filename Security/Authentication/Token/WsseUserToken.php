@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\Security\Authentication\Token;
+namespace Orkestra\Bundle\WebServiceBundle\Security\Authentication\Token;
 
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken,
     Symfony\Component\Security\Core\Exception\AuthenticationException;

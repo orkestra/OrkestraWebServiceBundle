@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle;
+namespace Orkestra\Bundle\WebServiceBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

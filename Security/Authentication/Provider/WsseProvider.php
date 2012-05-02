@@ -1,6 +1,6 @@
 <?php
 
-namespace Orkestra\WebServiceBundle\Security\Authentication\Provider;
+namespace Orkestra\Bundle\WebServiceBundle\Security\Authentication\Provider;
 
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface,
     Symfony\Component\Security\Core\User\UserProviderInterface,
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProvid
     Symfony\Component\Security\Core\Exception\NonceExpiredException,
     Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-use Orkestra\WebServiceBundle\Security\Authentication\Token\WsseUserToken;
+use Orkestra\Bundle\WebServiceBundle\Security\Authentication\Token\WsseUserToken;
 
 /**
  * WSSE Authentication Provider
