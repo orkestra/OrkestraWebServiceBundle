@@ -36,7 +36,7 @@ class Token extends EntityBase implements AdvancedUserInterface
     /**
      * @ORM\ManyToMany(targetEntity="Orkestra\OrkestraBundle\Entity\Group", fetch="EAGER")
      * @ORM\JoinTable(name="orkestra_token_groups",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     joinColumns={@ORM\JoinColumn(name="token_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      * )
      */

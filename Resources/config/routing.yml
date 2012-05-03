@@ -1,0 +1,4 @@
+# Bundle routes
+OrkestraBundle_routes:
+  resource: "@OrkestraWebServiceBundle/Controller"
+  type:     annotation
