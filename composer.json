@@ -1,10 +1,10 @@
 {
-  "name" : "orkestra/webservice-bundle",
-  "type" : "symfony-bundle",
-  "description" : "Provides WSSE authentication support for Symfony2 projects",
-  "license" : "MIT",
-  "require" : {
-    "php" : ">=5.3.3",
+  "name": "orkestra/webservice-bundle",
+  "type": "symfony-bundle",
+  "description": "Provides WSSE authentication support for Symfony2 projects",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
     "orkestra/common": "1.0.*"
   },
   "require-dev": {
