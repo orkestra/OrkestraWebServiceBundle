@@ -3,3 +3,6 @@ _notes/
 .project
 .settings/*
 .DS_Store
+vendor/*
+composer.lock
+.idea
