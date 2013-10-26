@@ -43,6 +43,13 @@ class Token extends AbstractEntity implements AdvancedUserInterface
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=40)
+     */
+    private $salt;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Orkestra\Bundle\ApplicationBundle\Model\GroupInterface", fetch="EAGER")
      * @ORM\JoinTable(name="orkestra_tokens_groups",
      *     joinColumns={@ORM\JoinColumn(name="token_id", referencedColumnName="id")},
@@ -57,7 +64,7 @@ class Token extends AbstractEntity implements AdvancedUserInterface
     public function __construct()
     {
         $this->groups = new ArrayCollection();
-        $this->password = sha1(uniqid(mt_rand(), true));
+        $this->salt   = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
     /**
@@ -156,7 +163,7 @@ class Token extends AbstractEntity implements AdvancedUserInterface
      */
     public function getSalt()
     {
-        return '';
+        return $this->salt;
     }
 
     /**
