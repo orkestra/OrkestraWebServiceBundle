@@ -17,8 +17,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface,
 use Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM;
 
-use Orkestra\Common\Entity\EntityBase,
-    Orkestra\OrkestraBundle\Entity\Group;
+use Orkestra\Common\Entity\AbstractEntity,
+    Orkestra\Bundle\ApplicationBundle\Model\GroupInterface;
 
 /**
  * Defines a user that is able to interact with web services
@@ -26,7 +26,7 @@ use Orkestra\Common\Entity\EntityBase,
  * @ORM\Table(name="orkestra_tokens")
  * @ORM\Entity(repositoryClass="Orkestra\Bundle\WebServiceBundle\Entity\Repository\TokenRepository")
  */
-class Token extends EntityBase implements AdvancedUserInterface
+class Token extends AbstractEntity implements AdvancedUserInterface
 {
     /**
      * @var string
@@ -43,8 +43,8 @@ class Token extends EntityBase implements AdvancedUserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Orkestra\OrkestraBundle\Entity\Group", fetch="EAGER")
-     * @ORM\JoinTable(name="orkestra_token_groups",
+     * @ORM\ManyToMany(targetEntity="Orkestra\Bundle\ApplicationBundle\Model\GroupInterface", fetch="EAGER")
+     * @ORM\JoinTable(name="orkestra_tokens_groups",
      *     joinColumns={@ORM\JoinColumn(name="token_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      * )
@@ -65,7 +65,7 @@ class Token extends EntityBase implements AdvancedUserInterface
      */
     public function __toString()
     {
-        return (string)$this->getUsername();
+        return (string) $this->username;
     }
 
     /**
@@ -91,9 +91,9 @@ class Token extends EntityBase implements AdvancedUserInterface
     /**
      * Adds the user to a group
      *
-     * @param \Orkestra\OrkestraBundle\Entity\Group $group
+     * @param \Orkestra\Bundle\ApplicationBundle\Model\GroupInterface $group
      */
-    public function addGroup(Group $group)
+    public function addGroup(GroupInterface $group)
     {
         $this->groups->add($group);
     }
