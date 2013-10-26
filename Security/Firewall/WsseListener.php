@@ -39,7 +39,7 @@ class WsseListener implements ListenerInterface
     /**
      * Constructor
      *
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $securityContext
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface                      $securityContext
      * @param \Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface $authenticationManager
      */
     public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager)
@@ -64,8 +64,7 @@ class WsseListener implements ListenerInterface
 
                 if ($result instanceof TokenInterface) {
                     return $this->_securityContext->setToken($result);
-                }
-                else if ($result instanceof Response) {
+                } elseif ($result instanceof Response) {
                     return $event->setResponse($result);
                 }
             } catch (AuthenticationException $failure) { }
@@ -75,7 +74,7 @@ class WsseListener implements ListenerInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent                    $event
      * @param null|\Symfony\Component\Security\Core\Exception\AuthenticationException $failure
      */
     protected function _onFailedToAuthenticate(GetResponseEvent $event, AuthenticationException $failure = null)

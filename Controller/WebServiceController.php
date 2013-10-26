@@ -28,7 +28,7 @@ abstract class WebServiceController extends Controller implements FilterRequestC
      *
      * @param mixed $content
      */
-    function setRequestContent($content)
+    public function setRequestContent($content)
     {
         $this->_content = $content;
     }

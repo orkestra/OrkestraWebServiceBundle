@@ -43,8 +43,8 @@ class WsseProvider implements AuthenticationProviderInterface
 
     /**
      * @param \Symfony\Component\Security\Core\User\UserProviderInterface $userProvider
-     * @param string $cacheDir
-     * @param int $lifetime
+     * @param string                                                      $cacheDir
+     * @param int                                                         $lifetime
      */
     public function __construct(UserProviderInterface $userProvider, $cacheDir, $lifetime = 300)
     {

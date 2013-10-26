@@ -21,7 +21,7 @@ class TokenType extends AbstractType
 {
     /**
      * @param \Symfony\Component\Form\FormBuilder $builder
-     * @param array $options
+     * @param array                               $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -27,7 +27,7 @@ class WsseUserToken extends AbstractToken
      * @param string $header The X-WSSE header value
      *
      * @return \Orkestra\WebServiceBundle\Security\Authentication\Token\WsseUserToken
-     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException if the given header value is not valid
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException     if the given header value is not valid
      */
     public static function createFromHeader($header)
     {
@@ -62,7 +62,7 @@ class WsseUserToken extends AbstractToken
      * @param string $digest
      * @param string $nonce
      * @param string $created
-     * @param array $roles An array of roles
+     * @param array  $roles    An array of roles
      */
     public function __construct($username, $digest, $nonce, $created, array $roles = array())
     {

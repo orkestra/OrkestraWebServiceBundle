@@ -69,7 +69,7 @@ class TokenRepository extends EntityRepository implements UserProviderInterface
     /**
      * Returns true if the given class is supported by this provider
      *
-     * @param string $class
+     * @param  string $class
      * @return bool
      */
     public function supportsClass($class)
