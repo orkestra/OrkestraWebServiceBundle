@@ -11,7 +11,7 @@
 
 namespace Orkestra\Bundle\WebServiceBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Orkestra\Bundle\ApplicationBundle\Controller\Controller;
 
 /**
  * Base class for web service controllers
