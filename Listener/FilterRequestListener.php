@@ -26,8 +26,7 @@ class FilterRequestListener
 
         $request = $event->getRequest();
         $content = $request->getContent();
-        $contentType = $request->get('content-type', 'application/json');
-        $format = $request->getFormat($contentType);
+        $format  = $request->getRequestFormat('json');
 
         switch ($format) {
             case 'json':
