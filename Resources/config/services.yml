@@ -2,6 +2,7 @@ parameters:
   orkestra.wsse.security.authentication.provider.class: Orkestra\Bundle\WebServiceBundle\Security\Authentication\Provider\WsseProvider
   orkestra.wsse.security.authentication.listener.class: Orkestra\Bundle\WebServiceBundle\Security\Firewall\WsseListener
   orkestra.event_listener.filter_request.class: Orkestra\Bundle\WebServiceBundle\Listener\FilterRequestListener
+  twig.controller.exception.class: Orkestra\Bundle\WebServiceBundle\Controller\ExceptionController
 
 services:
   orkestra.wsse.security.authentication.provider:
