@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Base class for web service controllers
  */
-abstract class WebServiceController extends Controller implements FilterRequestContentInterface
+abstract class WebServiceController extends Controller
 {
     /**
      * @var mixed
@@ -25,13 +25,27 @@ abstract class WebServiceController extends Controller implements FilterRequestC
     protected $content;
 
     /**
-     * Sets the request content
-     *
-     * @param mixed $content
+     * @return string
      */
-    public function setRequestContent($content)
+    abstract protected function getType();
+
+    /**
+     * Get denormalized request content
+     *
+     * @return mixed
+     */
+    protected function getRequestContent()
     {
-        $this->content = $content;
+        if (!$this->content) {
+            $request    = $this->getRequest();
+            $format     = $request->getRequestFormat();
+            $content    = $request->getContent();
+            $serializer = $this->get('serializer');
+
+            $this->content = $serializer->deserialize($content, $this->getType(), $format);
+        }
+
+        return $this->content;
     }
 
     /**
