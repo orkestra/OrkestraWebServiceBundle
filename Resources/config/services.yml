@@ -1,7 +1,7 @@
 parameters:
   orkestra.wsse.security.authentication.provider.class: Orkestra\Bundle\WebServiceBundle\Security\Authentication\Provider\WsseProvider
   orkestra.wsse.security.authentication.listener.class: Orkestra\Bundle\WebServiceBundle\Security\Firewall\WsseListener
-  orkestra.event_listener.filter_request.class: Orkestra\Bundle\WebServiceBundle\Listener\FilterRequestListener
+  orkestra.event_listener.filter_request.class: Orkestra\Bundle\WebServiceBundle\Listener\FilterRequestSubscriber
   twig.controller.exception.class: Orkestra\Bundle\WebServiceBundle\Controller\ExceptionController
 
 services:
@@ -13,7 +13,11 @@ services:
     class: %orkestra.wsse.security.authentication.listener.class%
     arguments: [ @security.context, @security.authentication.manager ]
 
-  orkestra.event_listener.filter_request:
+  orkestra.event_subscriber.filter_request.negotiator:
+    class: Negotiation\FormatNegotiator
+
+  orkestra.event_subscriber.filter_request:
     class: %orkestra.event_listener.filter_request.class%
+    arguments: [ @orkestra.event_listener.filter_request.negotiator ]
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+      - { name: kernel.event_subscriber }
