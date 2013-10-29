@@ -12,6 +12,7 @@
 namespace Orkestra\Bundle\WebServiceBundle\Controller;
 
 use Orkestra\Bundle\ApplicationBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Base class for web service controllers
@@ -21,7 +22,7 @@ abstract class WebServiceController extends Controller implements FilterRequestC
     /**
      * @var mixed
      */
-    protected $_content;
+    protected $content;
 
     /**
      * Sets the request content
@@ -30,6 +31,27 @@ abstract class WebServiceController extends Controller implements FilterRequestC
      */
     public function setRequestContent($content)
     {
-        $this->_content = $content;
+        $this->content = $content;
+    }
+
+    /**
+     * Returns a response in the appropriate format
+     *
+     * @param mixed $data
+     *
+     * @return Response
+     */
+    protected function respond($data)
+    {
+        $request    = $this->getRequest();
+        $format     = $request->getRequestFormat();
+        $serializer = $this->get('serializer');
+
+        return new Response(
+            $serializer->serialize($data, $format),
+            200,
+            array(
+                'Content-type' => $request->getMimeType($request->getRequestFormat())
+            ));
     }
 }
