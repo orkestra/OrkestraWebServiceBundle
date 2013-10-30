@@ -16,7 +16,7 @@ services:
   orkestra.event_subscriber.filter_request.negotiator:
     class: Negotiation\FormatNegotiator
     calls:
-      - [ registerFormat, [ 'yaml', [ 'text/yaml', 'text/x-yaml', 'application/yaml', 'aplication/x-yaml' ] ] ]
+      - [ registerFormat, [ 'yaml', [ 'text/yaml', 'text/x-yaml', 'application/yaml', 'application/x-yaml' ] ] ]
 
   orkestra.event_subscriber.filter_request:
     class: %orkestra.event_subscriber.filter_request.class%
