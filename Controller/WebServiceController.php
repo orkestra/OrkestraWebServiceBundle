@@ -40,7 +40,7 @@ abstract class WebServiceController extends Controller
             $request    = $this->getRequest();
             $format     = $request->getRequestFormat();
             $content    = $request->getContent();
-            $serializer = $this->get('serializer');
+            $serializer = $this->getSerializer();
 
             $this->content = $serializer->deserialize($content, $this->getType(), $format);
         }
@@ -59,7 +59,7 @@ abstract class WebServiceController extends Controller
     {
         $request    = $this->getRequest();
         $format     = $request->getRequestFormat();
-        $serializer = $this->get('serializer');
+        $serializer = $this->getSerializer();
 
         return new Response(
             $serializer->serialize($data, $format),
@@ -67,5 +67,13 @@ abstract class WebServiceController extends Controller
             array(
                 'Content-type' => $request->getMimeType($request->getRequestFormat())
             ));
+    }
+
+    /**
+     * @return \Symfony\Component\Serializer\Serializer
+     */
+    protected function getSerializer()
+    {
+        return $this->get('serializer');
     }
 }
