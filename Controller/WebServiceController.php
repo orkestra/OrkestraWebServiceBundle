@@ -34,15 +34,15 @@ abstract class WebServiceController extends Controller
      *
      * @return mixed
      */
-    protected function getRequestContent()
+    protected function getRequestContent(array $context = array())
     {
         if (!$this->content) {
             $request    = $this->getRequest();
-            $format     = $request->getRequestFormat();
+            $format     = $request->getContentType();
             $content    = $request->getContent();
             $serializer = $this->getSerializer();
 
-            $this->content = $serializer->deserialize($content, $this->getType(), $format);
+            $this->content = $serializer->deserialize($content, $this->getType(), $format, $context);
         }
 
         return $this->content;
