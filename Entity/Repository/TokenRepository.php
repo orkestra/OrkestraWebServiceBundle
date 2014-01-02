@@ -42,7 +42,7 @@ class TokenRepository extends EntityRepository implements UserProviderInterface
         try {
             $user = $query->getSingleResult();
         } catch (NoResultException $e) {
-            throw new UsernameNotFoundException(sprintf('Unable to find an active user object identified by "%s".', $username), null, 0, $e);
+            throw new UsernameNotFoundException(sprintf('Unable to find an active user object identified by "%s".', $username), 0, $e);
         }
 
         return $user;
