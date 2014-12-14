@@ -17,8 +17,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface,
 use Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM;
 
-use Orkestra\Common\Entity\AbstractEntity,
-    Orkestra\Bundle\ApplicationBundle\Model\GroupInterface;
+use Orkestra\Common\Entity\AbstractEntity;
 
 /**
  * Defines a user that is able to interact with web services
@@ -100,7 +99,7 @@ class Token extends AbstractEntity implements AdvancedUserInterface
      *
      * @param \Orkestra\Bundle\WebServiceBundle\Model\GroupInterface $group
      */
-    public function addGroup(GroupInterface $group)
+    public function addGroup($group)
     {
         $this->groups->add($group);
     }
