@@ -50,7 +50,7 @@ class Token extends AbstractEntity implements AdvancedUserInterface
     private $salt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Orkestra\Bundle\ApplicationBundle\Model\GroupInterface", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity="Orkestra\Bundle\WebServiceBundle\Model\GroupInterface", fetch="EAGER")
      * @ORM\JoinTable(name="orkestra_tokens_groups",
      *     joinColumns={@ORM\JoinColumn(name="token_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
@@ -98,7 +98,7 @@ class Token extends AbstractEntity implements AdvancedUserInterface
     /**
      * Adds the user to a group
      *
-     * @param \Orkestra\Bundle\ApplicationBundle\Model\GroupInterface $group
+     * @param \Orkestra\Bundle\WebServiceBundle\Model\GroupInterface $group
      */
     public function addGroup(GroupInterface $group)
     {
@@ -215,6 +215,4 @@ class Token extends AbstractEntity implements AdvancedUserInterface
     {
         return $this->active;
     }
-
-    #endregion
 }
