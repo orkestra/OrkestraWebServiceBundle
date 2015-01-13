@@ -22,31 +22,45 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class FilterRequestSubscriber implements EventSubscriberInterface
+class ExceptionSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \Negotiation\FormatNegotiator
+     * @var bool
      */
-    private $formatNegotiator;
+    private $debug;
 
     /**
      * Constructor
      *
-     * @param FormatNegotiator $formatNegotiator
+     * @param bool $debug
      */
-    public function __construct(FormatNegotiator $formatNegotiator)
+    public function __construct($debug = false)
     {
-        $this->formatNegotiator = $formatNegotiator;
+        $this->debug = $debug;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+        if ($event->getRequest()->getRequestFormat() !== 'json') {
             return;
         }
 
-        $request = $event->getRequest();
-        $request->setRequestFormat($this->formatNegotiator->getBestFormat($request->headers->get('accept')));
+        $code = 500;
+        $exception = $event->getException();
+        $data = array(
+            'code' => $code,
+            'message' => 'An internal server error occurred.'
+        );
+        if ($this->debug) {
+            $data['message'] = $exception->getMessage();
+            $data['trace'] = $exception->getTrace();
+        }
+
+        if ($exception instanceof HttpExceptionInterface) {
+            $data['code'] = $code = $exception->getStatusCode();
+        }
+
+        $event->setResponse(new JsonResponse($data, $code));
     }
 
     /**
@@ -55,7 +69,7 @@ class FilterRequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            KernelEvents::REQUEST => 'onKernelRequest'
+            KernelEvents::EXCEPTION => 'onKernelException'
         );
     }
 }
