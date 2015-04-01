@@ -13,8 +13,8 @@ namespace Orkestra\Bundle\WebServiceBundle\Listener;
 
 use Negotiation\FormatNegotiator;
 use Orkestra\Bundle\WebServiceBundle\Controller\FilterRequestContentInterface;
-use Pocomos\Bundle\ApplicationBundle\Http\JsonResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -49,11 +49,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $exception = $event->getException();
         $data = array(
             'code' => $code,
-            'message' => 'An internal server error occurred.'
+            'message' => $exception->getMessage() ?: 'An internal server error occurred.'
         );
         if ($this->debug) {
-            $data['message'] = $exception->getMessage();
-            $data['trace'] = $exception->getTrace();
+            $data['trace'] = $exception->getTraceAsString();
         }
 
         if ($exception instanceof HttpExceptionInterface) {
