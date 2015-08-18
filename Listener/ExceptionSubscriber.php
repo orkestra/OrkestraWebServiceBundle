@@ -11,8 +11,6 @@
 
 namespace Orkestra\Bundle\WebServiceBundle\Listener;
 
-use Negotiation\FormatNegotiator;
-use Orkestra\Bundle\WebServiceBundle\Controller\FilterRequestContentInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -52,7 +50,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             'message' => $exception->getMessage() ?: 'An internal server error occurred.'
         );
         if ($this->debug) {
-            $data['trace'] = $exception->getTraceAsString();
+            $data['trace'] = $this->getCleanTrace($exception);
         }
 
         if ($exception instanceof HttpExceptionInterface) {
@@ -60,6 +58,28 @@ class ExceptionSubscriber implements EventSubscriberInterface
         }
 
         $event->setResponse(new JsonResponse($data, $code));
+    }
+
+    private function getCleanTrace(\Exception $exception)
+    {
+        $trace = $exception->getTrace();
+        return array_map(function($values) {
+            if (isset($values['object'])) {
+                $values['object'] = get_class($values['object']).':'.spl_object_hash($values['object']);
+            }
+
+            if (isset($values['args'])) {
+                $args = $values['args'];
+                array_walk_recursive($args, function(&$value) {
+                    if (is_object($value)) {
+                        $value = get_class($value).':'.spl_object_hash($value);
+                    }
+                });
+                $values['args'] = $args;
+            }
+
+            return $values;
+        }, $trace);
     }
 
     /**
